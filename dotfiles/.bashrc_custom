@@ -1,0 +1,28 @@
+alias la='ls -A'
+alias lA='ls -ld .?*'
+alias ll='ls -l'
+alias vi='vim'
+
+mkcdir ()
+{
+    mkdir -p -- "$1" &&
+      cd -P -- "$1"
+}
+
+cdls() { cd "$@" && ls; }
+export -f cdls
+
+export PS1="[\[\033[36m\]\u\[\033[m\]] 😃  \[\033[33;1m\]\w\[\033[m\]\$ "
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad 
+
+
+cd() {
+  if [[ -f "$1" || -L "$1" ]]; then
+    path=$(getTrueName "$1")
+    builtin cd "$path"
+  else
+    builtin cd "$@"
+  fi
+}
+
